@@ -21,6 +21,9 @@ const { errorHandler } = require('./middleware/errorHandler');
 // ── Crear app ──────────────────────────────────────────────
 const app = express();
 
+// Confiar en el proxy de Google Cloud Run para IP real y rate-limiting
+app.set('trust proxy', 1);
+
 // ── Seguridad ──────────────────────────────────────────────
 app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' }, // permitir cargar imágenes desde el cliente
@@ -58,6 +61,7 @@ const apiLimiter = rateLimit({
   max: 100,
   standardHeaders: true,
   legacyHeaders: false,
+  validate: { xForwardedForHeader: false },
   message: {
     success: false,
     message: 'Demasiadas solicitudes. Intente de nuevo en 15 minutos.',

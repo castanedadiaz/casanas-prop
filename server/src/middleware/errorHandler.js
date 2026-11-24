@@ -6,10 +6,8 @@ const env = require('../config/env');
 
 // eslint-disable-next-line no-unused-vars
 function errorHandler(err, req, res, next) {
-  // Log en desarrollo
-  if (env.NODE_ENV === 'development') {
-    console.error('❌ Error:', err);
-  }
+  // Log de error (siempre visible en Cloud Logging / terminal)
+  console.error('❌ Error en petición:', req.method, req.originalUrl, err);
 
   // ── Errores de Prisma ────────────────────────────────────
   if (err.code === 'P2002') {
