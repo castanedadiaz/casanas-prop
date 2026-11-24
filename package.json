@@ -1,0 +1,22 @@
+{
+  "name": "casanas-propiedades",
+  "version": "1.0.0",
+  "description": "Real estate platform for Casañas Propiedades",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "build": "cd client && npm run build",
+    "start": "cd server && npm start",
+    "db:generate": "cd server && npx prisma generate",
+    "db:push": "cd server && npx prisma db push",
+    "db:seed": "cd server && node prisma/seed.js",
+    "db:setup": "npm run db:generate && npm run db:push && npm run db:seed",
+    "setup": "npm install && cd server && npm install && cd ../client && npm install && cd .. && npm run db:setup"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
+

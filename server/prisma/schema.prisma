@@ -1,0 +1,66 @@
+// Prisma schema for Casañas Propiedades
+// Using SQLite for local development
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Administrador del sistema
+model AdminUser {
+  id           String     @id @default(cuid())
+  email        String     @unique
+  passwordHash String
+  name         String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  properties   Property[]
+}
+
+/// Propiedad inmobiliaria
+model Property {
+  id              String          @id @default(cuid())
+  title           String
+  slug            String          @unique
+  description     String
+  operationType   String          // "SALE" | "RENT"
+  propertyType    String          // "HOUSE" | "APARTMENT" | "COMMERCIAL" | "LAND" | "OFFICE"
+  price           Float
+  currency        String          @default("USD")
+  address         String
+  city            String
+  neighborhood    String?
+  surfaceTotal    Float
+  surfaceCovered  Float
+  bedrooms        Int             @default(0)
+  bathrooms       Int             @default(0)
+  garages         Int             @default(0)
+  age             Int             @default(0)
+  hasPool         Boolean         @default(false)
+  hasGarden       Boolean         @default(false)
+  hasSecurity     Boolean         @default(false)
+  status          String          @default("AVAILABLE") // "AVAILABLE" | "RESERVED" | "SOLD" | "RENTED"
+  isFeatured      Boolean         @default(false)
+  isVisible       Boolean         @default(true)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  createdById     String
+  createdBy       AdminUser       @relation(fields: [createdById], references: [id])
+  images          PropertyImage[]
+}
+
+/// Imagen asociada a una propiedad
+model PropertyImage {
+  id           String   @id @default(cuid())
+  propertyId   String
+  property     Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  url          String
+  altText      String?
+  displayOrder Int      @default(0)
+  isCover      Boolean  @default(false)
+  createdAt    DateTime @default(now())
+}
