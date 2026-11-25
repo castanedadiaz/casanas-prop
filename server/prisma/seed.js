@@ -16,7 +16,10 @@ async function main() {
 
   // ── Admin user ──────────────────────────────────────────────
   const email = process.env.ADMIN_EMAIL || 'info@casanaspropiedades.com.ar';
-  const password = process.env.ADMIN_PASSWORD || 'CasanasAdmin2024!';
+  const password = process.env.ADMIN_PASSWORD;
+  if (!password || password.length < 8) {
+    throw new Error('Definí ADMIN_PASSWORD (mín. 8 caracteres) en server/.env antes de correr el seed.');
+  }
   const name = process.env.ADMIN_NAME || 'Fernanda Casañas';
   const passwordHash = await bcrypt.hash(password, 12);
 

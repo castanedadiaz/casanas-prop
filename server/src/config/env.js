@@ -15,13 +15,8 @@ const env = {
   JWT_SECRET: process.env.JWT_SECRET || 'default_secret_change_me',
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || '7d',
 
-  // Admin defaults
-  ADMIN_EMAIL: process.env.ADMIN_EMAIL || 'info@casanaspropiedades.com.ar',
-  ADMIN_PASSWORD: process.env.ADMIN_PASSWORD || 'CasanasAdmin2024!',
-  ADMIN_NAME: process.env.ADMIN_NAME || 'Fernanda Casañas',
-
   // WhatsApp
-  WHATSAPP_NUMBER: process.env.WHATSAPP_NUMBER || '5491112345678',
+  WHATSAPP_NUMBER: process.env.WHATSAPP_NUMBER || '5492234480357',
 
   // Client
   CLIENT_URL: process.env.CLIENT_URL || 'http://localhost:5173',
@@ -30,5 +25,16 @@ const env = {
   MAX_FILE_SIZE: parseInt(process.env.MAX_FILE_SIZE, 10) || 5242880, // 5 MB
   MAX_FILES_PER_PROPERTY: parseInt(process.env.MAX_FILES_PER_PROPERTY, 10) || 15,
 };
+
+// En producción, negarse a arrancar con un JWT_SECRET ausente, débil o de ejemplo.
+if (env.NODE_ENV === 'production') {
+  const weak = !process.env.JWT_SECRET
+    || env.JWT_SECRET.length < 32
+    || /change|default|example|generar/i.test(env.JWT_SECRET);
+  if (weak) {
+    console.error('❌ JWT_SECRET ausente o inseguro en producción. Abortando.');
+    process.exit(1);
+  }
+}
 
 module.exports = env;

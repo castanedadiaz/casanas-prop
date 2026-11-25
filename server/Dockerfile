@@ -22,8 +22,9 @@ RUN npx prisma generate
 # Copiar el código fuente
 COPY src ./src
 
-# Crear directorio de uploads temporal si corre en modo local
-RUN mkdir -p uploads
+# Crear directorio de uploads temporal y correr como usuario sin privilegios
+RUN mkdir -p uploads && chown -R node:node /app
+USER node
 
 # Variables de entorno por defecto
 ENV NODE_ENV=production

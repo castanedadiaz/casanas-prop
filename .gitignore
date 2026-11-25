@@ -35,3 +35,6 @@ firma-email.html
 *.log
 npm-debug.log*
 
+# Firebase cache
+.firebase/
+

@@ -252,12 +252,9 @@ async function deleteProperty(req, res, next) {
         where: { propertyId: id },
       });
 
-      // Eliminar archivos del disco
+      // Eliminar archivos (Google Cloud Storage o disco local)
       for (const img of images) {
-        const filePath = path.resolve(UPLOADS_DIR, path.basename(img.url));
-        if (fs.existsSync(filePath)) {
-          fs.unlinkSync(filePath);
-        }
+        await storageService.deletePropertyImage(img.url, UPLOADS_DIR);
       }
 
       // Eliminar propiedad (cascade elimina PropertyImage)

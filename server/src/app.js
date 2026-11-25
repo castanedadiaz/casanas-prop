@@ -30,13 +30,25 @@ app.use(helmet({
 }));
 
 // ── CORS ───────────────────────────────────────────────────
-const rawOrigins = env.CLIENT_URL || '*';
-const allowedOrigins = rawOrigins.split(',').map(s => s.trim());
+// En producción solo se aceptan los dominios oficiales (se ignora '*').
+const PRODUCTION_ORIGINS = [
+  'https://casanaspropiedades.com.ar',
+  'https://www.casanaspropiedades.com.ar',
+  'https://casanas-propiedades.web.app',
+  'https://casanas-propiedades.firebaseapp.com',
+];
+const envOrigins = (env.CLIENT_URL || '')
+  .split(',')
+  .map((s) => s.trim())
+  .filter((s) => s && s !== '*');
+const allowedOrigins = env.NODE_ENV === 'production'
+  ? [...new Set([...PRODUCTION_ORIGINS, ...envOrigins])]
+  : [...new Set([...envOrigins, 'http://localhost:5173'])];
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Permitir peticiones sin origen (ej. curl, SSR) o si coincide con los permitidos
-    if (!origin || allowedOrigins.includes('*') || allowedOrigins.includes(origin)) {
+    // Permitir peticiones sin origen (ej. curl, health checks) o si coincide con los permitidos
+    if (!origin || allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
     return callback(new Error(`Origen ${origin} no permitido por CORS`));
@@ -52,8 +64,8 @@ if (env.NODE_ENV === 'development') {
 }
 
 // ── Body parsing ───────────────────────────────────────────
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '1mb' }));
+app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 
 // ── Rate limiting (rutas API) ──────────────────────────────
 const apiLimiter = rateLimit({
@@ -68,6 +80,21 @@ const apiLimiter = rateLimit({
   },
 });
 app.use('/api', apiLimiter);
+
+// Límite estricto para login (anti fuerza bruta): 10 intentos fallidos / 15 min por IP
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  skipSuccessfulRequests: true,
+  standardHeaders: true,
+  legacyHeaders: false,
+  validate: { xForwardedForHeader: false },
+  message: {
+    success: false,
+    message: 'Demasiados intentos de inicio de sesión. Intente de nuevo en 15 minutos.',
+  },
+});
+app.use('/api/auth/login', loginLimiter);
 
 // ── Archivos estáticos (imágenes) ──────────────────────────
 app.use('/uploads', express.static(path.resolve(__dirname, '../uploads')));
