@@ -17,6 +17,7 @@ import SearchBar from '../components/properties/SearchBar'
 import PropertyGrid from '../components/properties/PropertyGrid'
 import Button from '../components/ui/Button'
 import { WHATSAPP_NUMBER } from '../utils/constants'
+import { useSeo } from '../utils/seo'
 
 // Componente para avatar de equipo con foto compacta y fallback elegante
 function TeamMemberAvatar({ src, alt, initials }) {
@@ -43,6 +44,7 @@ function TeamMemberAvatar({ src, alt, initials }) {
 }
 
 export default function HomePage() {
+  useSeo({ path: '/' })
   const { data: featuredProperties, isLoading } = useQuery({
     queryKey: ['featuredProperties'],
     queryFn: getFeaturedProperties,
@@ -65,7 +67,7 @@ export default function HomePage() {
           </h1>
 
           <p className="text-gray-200 text-base sm:text-lg max-w-2xl mx-auto font-light leading-relaxed">
-            Asesoramiento personalizado, transparencia y las propiedades más exclusivas en venta y alquiler en Buenos Aires.
+            Asesoramiento personalizado, transparencia y las propiedades más exclusivas en venta y alquiler en Mar del Plata.
           </p>
 
           {/* Hero Search Bar */}

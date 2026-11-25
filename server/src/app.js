@@ -104,6 +104,31 @@ app.get('/api/health', (_req, res) => {
   res.json({ success: true, message: 'Casañas Propiedades API funcionando correctamente.' });
 });
 
+// ── Sitemap dinámico (propiedades visibles) para Google ────
+// Referenciado desde https://casanaspropiedades.com.ar/robots.txt
+const { PrismaClient } = require('@prisma/client');
+const sitemapPrisma = new PrismaClient();
+const SITE_URL = 'https://casanaspropiedades.com.ar';
+const xmlEscape = (s) => String(s).replace(/[<>&'"]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', "'": '&apos;', '"': '&quot;' }[c]));
+
+app.get('/api/sitemap.xml', async (_req, res, next) => {
+  try {
+    const properties = await sitemapPrisma.property.findMany({
+      where: { isVisible: true },
+      select: { slug: true, updatedAt: true },
+      orderBy: { updatedAt: 'desc' },
+    });
+    const urls = properties.map((p) =>
+      `  <url><loc>${xmlEscape(`${SITE_URL}/propiedad/${p.slug}`)}</loc><lastmod>${p.updatedAt.toISOString()}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>`
+    );
+    res.set('Content-Type', 'application/xml; charset=utf-8');
+    res.set('Cache-Control', 'public, max-age=3600');
+    res.send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>`);
+  } catch (err) {
+    next(err);
+  }
+});
+
 // ── Rutas ──────────────────────────────────────────────────
 app.use('/api/auth', authRoutes);
 app.use('/api/properties', propertyRoutes);

@@ -25,6 +25,87 @@ import {
   getStatusLabel,
   getStatusColor,
 } from '../utils/formatters'
+import { useSeo, SITE_URL } from '../utils/seo'
+
+const SCHEMA_TYPE = {
+  HOUSE: 'SingleFamilyResidence',
+  APARTMENT: 'Apartment',
+  LAND: 'Place',
+  COMMERCIAL: 'Place',
+  OFFICE: 'Place',
+}
+
+function buildPropertySeo(property, slug) {
+  if (!property) return { title: 'Propiedad', path: `/propiedad/${slug}` }
+  const op = getOperationLabel(property.operationType)
+  const type = getPropertyTypeLabel(property.propertyType)
+  const zone = [property.neighborhood, property.city].filter(Boolean).join(', ')
+  const price = formatPrice(property.price, property.currency)
+  const cover = property.images?.find((i) => i.isCover) || property.images?.[0]
+  const url = `${SITE_URL}/propiedad/${property.slug}`
+  const features = [
+    property.bedrooms ? `${property.bedrooms} dorm.` : null,
+    property.bathrooms ? `${property.bathrooms} baños` : null,
+    property.surfaceTotal ? `${property.surfaceTotal} m²` : null,
+  ].filter(Boolean).join(' · ')
+
+  return {
+    title: `${property.title} — ${type} en ${op} en ${zone}`,
+    description: `${type} en ${op.toLowerCase()} en ${zone}. ${price}. ${features}. ${property.description}`,
+    path: `/propiedad/${property.slug}`,
+    image: cover?.url,
+    type: 'article',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'RealEstateListing',
+          name: property.title,
+          url,
+          description: property.description,
+          datePosted: property.createdAt,
+          image: (property.images || []).map((i) => i.url),
+          offers: {
+            '@type': 'Offer',
+            price: property.price,
+            priceCurrency: property.currency,
+            businessFunction: property.operationType === 'RENT'
+              ? 'http://purl.org/goodrelations/v1#LeaseOut'
+              : 'http://purl.org/goodrelations/v1#Sell',
+            availability: property.status === 'AVAILABLE'
+              ? 'https://schema.org/InStock'
+              : 'https://schema.org/SoldOut',
+            seller: { '@id': `${SITE_URL}/#organization` },
+          },
+          about: {
+            '@type': SCHEMA_TYPE[property.propertyType] || 'Place',
+            name: property.title,
+            address: {
+              '@type': 'PostalAddress',
+              streetAddress: property.address,
+              addressLocality: property.city,
+              addressRegion: 'Buenos Aires',
+              addressCountry: 'AR',
+            },
+            ...(property.bedrooms ? { numberOfBedrooms: property.bedrooms } : {}),
+            ...(property.bathrooms ? { numberOfBathroomsTotal: property.bathrooms } : {}),
+            ...(property.surfaceTotal
+              ? { floorSize: { '@type': 'QuantitativeValue', value: property.surfaceTotal, unitCode: 'MTK' } }
+              : {}),
+          },
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${SITE_URL}/` },
+            { '@type': 'ListItem', position: 2, name: 'Propiedades', item: `${SITE_URL}/propiedades` },
+            { '@type': 'ListItem', position: 3, name: property.title, item: url },
+          ],
+        },
+      ],
+    },
+  }
+}
 
 export default function PropertyDetailPage() {
   const { slug } = useParams()
@@ -33,6 +114,12 @@ export default function PropertyDetailPage() {
     queryKey: ['property', slug],
     queryFn: () => getPropertyBySlug(slug),
   })
+
+  useSeo(
+    error || (!isLoading && !property)
+      ? { title: 'Propiedad no encontrada', noindex: true }
+      : buildPropertySeo(property, slug)
+  )
 
   if (isLoading) {
     return <LoadingSpinner fullScreen text="Cargando detalles de la propiedad..." />

@@ -5,8 +5,10 @@ import { Lock, Mail } from 'lucide-react'
 import useAuthStore from '../context/AuthContext'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
+import { useSeo } from '../utils/seo'
 
 export default function AdminLoginPage() {
+  useSeo({ title: 'Acceso administración', noindex: true })
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)

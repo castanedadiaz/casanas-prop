@@ -75,15 +75,15 @@ export default function Footer() {
             <ul className="space-y-3 text-sm text-gray-300">
               <li className="flex items-start gap-2.5">
                 <MapPin className="h-4 w-4 text-secondary shrink-0 mt-1" />
-                <span>Buenos Aires, Argentina</span>
+                <span>Mar del Plata, Buenos Aires</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone className="h-4 w-4 text-secondary shrink-0" />
-                <span>+54 9 11 1234-5678</span>
+                <a href="tel:+5492234480357" className="hover:text-secondary transition">+54 9 223 448-0357</a>
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail className="h-4 w-4 text-secondary shrink-0" />
-                <span>contacto@casanaspropiedades.com</span>
+                <a href="mailto:info@casanaspropiedades.com.ar" className="hover:text-secondary transition">info@casanaspropiedades.com.ar</a>
               </li>
               <li className="flex items-center gap-2.5">
                 <Clock className="h-4 w-4 text-secondary shrink-0" />

@@ -2,8 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Home } from 'lucide-react'
 import Button from '../components/ui/Button'
+import { useSeo } from '../utils/seo'
 
 export default function NotFoundPage() {
+  useSeo({ title: 'Página no encontrada', noindex: true })
   return (
     <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 py-16 space-y-6">
       <div className="h-20 w-20 rounded-full bg-secondary/15 flex items-center justify-center text-secondary-dark">

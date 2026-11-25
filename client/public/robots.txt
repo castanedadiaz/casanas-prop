@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+
+Sitemap: https://casanaspropiedades.com.ar/sitemap.xml
+Sitemap: https://casanas-api-497690195425.us-central1.run.app/api/sitemap.xml

@@ -6,9 +6,19 @@ import { getProperties } from '../services/propertyService'
 import PropertyGrid from '../components/properties/PropertyGrid'
 import SearchBar from '../components/properties/SearchBar'
 import { SORT_OPTIONS } from '../utils/constants'
+import { useSeo } from '../utils/seo'
 
 export default function PropertiesPage() {
   const [searchParams, setSearchParams] = useSearchParams()
+  const hasFilters = [...searchParams.keys()].length > 0
+  useSeo({
+    title: 'Propiedades en venta y alquiler en Mar del Plata',
+    description:
+      'Catálogo de casas, departamentos, terrenos y locales en venta y alquiler en Mar del Plata. Filtrá por tipo, zona y precio y consultá directo por WhatsApp.',
+    path: '/propiedades',
+    // Las combinaciones de filtros no se indexan (evita contenido duplicado)
+    noindex: hasFilters,
+  })
 
   const currentPage = parseInt(searchParams.get('page') || '1', 10)
   const operationType = searchParams.get('operationType') || ''
