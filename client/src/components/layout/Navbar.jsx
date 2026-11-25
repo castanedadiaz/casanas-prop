@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, Instagram } from 'lucide-react'
-import { INSTAGRAM_URL } from '../../utils/constants'
+import { Menu, X, Instagram, Facebook } from 'lucide-react'
+import { INSTAGRAM_URL, FACEBOOK_URL } from '../../utils/constants'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -73,7 +73,7 @@ export default function Navbar() {
           </nav>
 
           {/* Right Action: Redes Sociales */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2">
             <a
               href={INSTAGRAM_URL}
               target="_blank"
@@ -84,6 +84,16 @@ export default function Navbar() {
             >
               <Instagram className="h-4 w-4 text-[#E4405F]" />
               <span>@casanaspropiedades</span>
+            </a>
+            <a
+              href={FACEBOOK_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook de Casañas Propiedades"
+              className="flex items-center justify-center p-1.5 text-gray-700 hover:text-[#1877F2] transition rounded-lg hover:bg-gray-100 border border-gray-200"
+              title="Seguinos en Facebook"
+            >
+              <Facebook className="h-4 w-4 text-[#1877F2]" />
             </a>
           </div>
 
@@ -127,6 +137,15 @@ export default function Navbar() {
               >
                 <Instagram className="h-4 w-4 text-[#E4405F]" />
                 <span>Instagram @casanaspropiedades</span>
+              </a>
+              <a
+                href={FACEBOOK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:text-[#1877F2] transition font-medium"
+              >
+                <Facebook className="h-4 w-4 text-[#1877F2]" />
+                <span>Facebook Casañas Propiedades</span>
               </a>
             </div>
           </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { MapPin, Phone, Mail, Clock, MessageCircle, Instagram } from 'lucide-react'
-import { WHATSAPP_NUMBER, INSTAGRAM_URL } from '../../utils/constants'
+import { MapPin, Phone, Mail, Clock, MessageCircle, Instagram, Facebook } from 'lucide-react'
+import { WHATSAPP_NUMBER, INSTAGRAM_URL, FACEBOOK_URL } from '../../utils/constants'
 
 export default function Footer() {
   return (
@@ -75,11 +75,11 @@ export default function Footer() {
             <ul className="space-y-3 text-sm text-gray-300">
               <li className="flex items-start gap-2.5">
                 <MapPin className="h-4 w-4 text-secondary shrink-0 mt-1" />
-                <span>Mar del Plata, Buenos Aires</span>
+                <span>Partido de la Costa y zona, Buenos Aires</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone className="h-4 w-4 text-secondary shrink-0" />
-                <a href="tel:+5492234480357" className="hover:text-secondary transition">+54 9 223 448-0357</a>
+                <a href="tel:+5492235621984" className="hover:text-secondary transition">+54 9 223 562-1984</a>
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail className="h-4 w-4 text-secondary shrink-0" />
@@ -90,7 +90,7 @@ export default function Footer() {
                 <span>Lun a Vie: 9:00 a 18:00 hs</span>
               </li>
             </ul>
-            <div className="mt-4 flex flex-col sm:flex-row gap-2">
+            <div className="mt-4 flex flex-wrap gap-2">
               <a
                 href={`https://wa.me/${WHATSAPP_NUMBER}`}
                 target="_blank"
@@ -108,6 +108,15 @@ export default function Footer() {
               >
                 <Instagram className="h-4 w-4" />
                 Instagram
+              </a>
+              <a
+                href={FACEBOOK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-[#1877F2] hover:bg-[#166fe5] text-white text-xs font-semibold py-2 px-3 rounded-lg transition shadow"
+              >
+                <Facebook className="h-4 w-4" />
+                Facebook
               </a>
             </div>
           </div>

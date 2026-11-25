@@ -12,9 +12,9 @@ export default function PropertiesPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const hasFilters = [...searchParams.keys()].length > 0
   useSeo({
-    title: 'Propiedades en venta y alquiler en Mar del Plata',
+    title: 'Propiedades en venta y alquiler en el Partido de la Costa y zona',
     description:
-      'Catálogo de casas, departamentos, terrenos y locales en venta y alquiler en Mar del Plata. Filtrá por tipo, zona y precio y consultá directo por WhatsApp.',
+      'Catálogo de casas, departamentos, terrenos y locales en venta y alquiler en el Partido de la Costa y zona. Filtrá por tipo, zona y precio y consultá directo por WhatsApp.',
     path: '/propiedades',
     // Las combinaciones de filtros no se indexan (evita contenido duplicado)
     noindex: hasFilters,

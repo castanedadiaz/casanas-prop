@@ -2,9 +2,9 @@ import { useEffect } from 'react'
 
 export const SITE_URL = 'https://casanaspropiedades.com.ar'
 export const SITE_NAME = 'Casañas Propiedades'
-export const DEFAULT_TITLE = 'Casañas Propiedades | Inmobiliaria en Mar del Plata — Venta y Alquiler'
+export const DEFAULT_TITLE = 'Casañas Propiedades | Inmobiliaria en el Partido de la Costa y Zona — Venta y Alquiler'
 export const DEFAULT_DESCRIPTION =
-  'Inmobiliaria en Mar del Plata. Casas, departamentos, terrenos y locales en venta y alquiler. Tasaciones sin cargo, martillera colegiada y respaldo legal en cada operación.'
+  'Inmobiliaria en el Partido de la Costa y zona. Casas, departamentos, terrenos y locales en venta y alquiler. Tasaciones sin cargo, martillera colegiada y respaldo legal en cada operación.'
 export const DEFAULT_IMAGE = `${SITE_URL}/logo.png`
 
 function setMeta(attr, key, content) {

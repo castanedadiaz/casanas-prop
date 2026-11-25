@@ -1,5 +1,6 @@
 export const WHATSAPP_NUMBER = '5492235621984'
 export const INSTAGRAM_URL = 'https://www.instagram.com/casanaspropiedades'
+export const FACEBOOK_URL = 'https://www.facebook.com/p/Casa%C3%B1as-Propiedades-61596860121691/'
 
 export const OPERATION_TYPES = [
   { value: 'SALE', label: 'Venta' },

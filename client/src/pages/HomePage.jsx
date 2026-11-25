@@ -67,7 +67,7 @@ export default function HomePage() {
           </h1>
 
           <p className="text-gray-200 text-base sm:text-lg max-w-2xl mx-auto font-light leading-relaxed">
-            Asesoramiento personalizado, transparencia y las propiedades más exclusivas en venta y alquiler en Mar del Plata.
+            Asesoramiento personalizado, transparencia y las propiedades más exclusivas en venta y alquiler en el Partido de la Costa y zona.
           </p>
 
           {/* Hero Search Bar */}
@@ -121,20 +121,20 @@ export default function HomePage() {
 
           {/* Cards de los dos titulares */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto mb-16">
-            {/* Fernanda Casañas */}
+            {/* María Fernanda Casañas */}
             <article className="bg-[#FAF8F2] rounded-3xl p-6 sm:p-8 border border-secondary/30 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
               <div>
                 <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-6 mb-6 text-center sm:text-left">
                   <TeamMemberAvatar
                     src="/team/fernanda.jpg"
-                    alt="Fernanda Casañas - Martillera y Corredora Pública"
-                    initials="FC"
+                    alt="María Fernanda Casañas - Martillera y Corredora Pública"
+                    initials="MFC"
                   />
 
                   <div className="space-y-1.5 flex-1">
                     <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
                       <h3 className="font-display text-2xl font-bold text-primary">
-                        Fernanda Casañas
+                        María Fernanda Casañas
                       </h3>
                       <span className="inline-flex items-center gap-1 bg-primary text-secondary text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">
                         <Award className="h-3.5 w-3.5" />
@@ -192,7 +192,7 @@ export default function HomePage() {
                       </span>
                     </div>
                     <p className="text-xs font-semibold text-secondary-dark uppercase tracking-wider">
-                      Abogado
+                      Abogado · Tomo 14 Folio 405
                     </p>
                     <p className="text-xs text-gray-500">
                       Asesoramiento Jurídico Integral
@@ -201,7 +201,7 @@ export default function HomePage() {
                 </div>
 
                 <p className="text-gray-700 text-sm leading-relaxed mb-6">
-                  Especialista en derecho inmobiliario y contractual. Supervisa y audita cada trámite legal para blindar patrimonialmente tus operaciones: desde el estudio de títulos e inhibiciones hasta la firma de boletos y escrituras.
+                  Brinda asesoramiento en derecho inmobiliario y contractual. Supervisa y audita cada trámite legal para blindar patrimonialmente tus operaciones: desde el estudio de títulos e inhibiciones hasta la firma de boletos y escrituras.
                 </p>
 
                 <div className="space-y-2.5 pt-4 border-t border-secondary/20 text-xs text-gray-600">
