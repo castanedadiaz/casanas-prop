@@ -169,20 +169,20 @@ export default function HomePage() {
               </div>
             </article>
 
-            {/* Ricardo Fiante */}
+            {/* Ricardo De Sabato */}
             <article className="bg-[#FAF8F2] rounded-3xl p-6 sm:p-8 border border-secondary/30 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
               <div>
                 <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 sm:gap-6 mb-6 text-center sm:text-left">
                   <TeamMemberAvatar
                     src="/team/ricardo.jpg"
-                    alt="Ricardo Fiante - Abogado"
-                    initials="RF"
+                    alt="Ricardo De Sabato - Abogado"
+                    initials="RDS"
                   />
 
                   <div className="space-y-1.5 flex-1">
                     <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
                       <h3 className="font-display text-2xl font-bold text-primary">
-                        Ricardo Fiante
+                        Ricardo De Sabato
                       </h3>
                       <span className="inline-flex items-center gap-1 bg-primary text-secondary text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">
                         <Scale className="h-3.5 w-3.5" />
