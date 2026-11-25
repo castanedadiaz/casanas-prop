@@ -11,6 +11,7 @@ import {
   Check,
   Share2,
   ArrowLeft,
+  ExternalLink,
 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { getPropertyBySlug } from '../services/propertyService'
@@ -202,12 +203,25 @@ export default function PropertyDetailPage() {
               {property.title}
             </h1>
 
-            <div className="flex items-center gap-2 text-gray-600 text-sm">
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                [property.address, property.neighborhood, property.city, 'Buenos Aires, Argentina']
+                  .filter(Boolean)
+                  .join(', ')
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex flex-wrap items-center gap-2 text-gray-600 hover:text-primary text-sm group transition"
+            >
               <MapPin className="h-4 w-4 text-secondary shrink-0" />
-              <span>
+              <span className="group-hover:underline">
                 {property.address}, {property.neighborhood ? `${property.neighborhood}, ` : ''}{property.city}
               </span>
-            </div>
+              <span className="inline-flex items-center gap-1 text-xs font-semibold text-primary bg-secondary/20 group-hover:bg-secondary/35 px-2.5 py-0.5 rounded-full transition">
+                Ver en mapa
+                <ExternalLink className="h-3 w-3" />
+              </span>
+            </a>
           </div>
 
           {/* Key Specs Grid */}
