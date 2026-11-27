@@ -302,7 +302,7 @@ export default function HomePage() {
             ¿Querés vender o alquilar tu propiedad?
           </h2>
           <p className="text-gray-200 text-base sm:text-lg max-w-2xl mx-auto font-light">
-            Tasamos tu inmueble sin cargo y lo posicionamos ante los compradores indicados con fotografía profesional y difusión integral.
+            Tasamos tu inmueble y lo posicionamos ante los compradores indicados con fotografía profesional y difusión integral.
           </p>
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
